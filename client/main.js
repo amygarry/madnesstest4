@@ -4,12 +4,7 @@ const fortuneSbmt  = document.querySelector("#submitFortune")
 const seeAllBtn = document.querySelector("#seeAll")
 const fortuneInpt = document.querySelector("#fortuneTxt")
 const body = document.querySelector('body')
-
-let newFortune = fortuneInpt.value
-
-let myBod = {
-    newFortune
-}
+const form = document.querySelector('#form')
 
 
 const getCompliment = () => {
@@ -32,12 +27,23 @@ function getFortune (){
 //once it is put there I want there to be an alert that says whatever their function was and then the statement was added to the databas
 //I don't know how to do this 
 // I don't know how to create a body, and since I don't know how to create a body I can't send anything. 
+//I may have figured out the body but It is giving me an error in promise an telling me line 38. Idk what to do. 
 function submitFortune (event){
-event.preventDefault()
-    axios.post("http://localhost:4000/api/fortuneSubmit/")
-    .then(res =>{
-        console.log(res)
-        alert(res.data)
+    event.preventDefault()
+
+    let myBody = {
+        newFortune: fortuneInpt.value
+    }
+
+    axios.post("http://localhost:4000/api/fortuneSubmit/", myBody)
+   
+    .then((response) =>{
+        let db = response.data
+        console.log(db)
+        alert(db + ", was added to the list of fortunes!")
+    })
+    .catch((err)=>{
+        console.log(err)
     })
 }
 
@@ -53,5 +59,5 @@ function seeAll (fortunes){
 
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
-fortuneSbmt.addEventListener('click',submitFortune)
+form.addEventListener('submit',submitFortune)
 seeAllBtn.addEventListener('click', seeAll)

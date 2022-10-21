@@ -34,7 +34,7 @@ module.exports = {
         res.status(200).send(randomCompliment);
     },
 
-    getFortune: (req, res) => {
+    get1Fortune: (req, res) => {
 
         let randomIndex = Math.floor(Math.random() * fortunes.length);
         let randomFortune = fortunes[randomIndex];
@@ -44,8 +44,14 @@ module.exports = {
 
 //then we come over here, we get what they have sent us and we push it to the fortunes array. 
     submitFortune: (req, res)=>{
-        fortunes.push(req.body)
-        res.send(200).send(req.body)
+       const thenewfortune = req.body.newFortune
+
+        let newfortune = {
+            newFortune: thenewfortune,
+        }
+        fortunes.push(newfortune.newFortune)
+        console.log(fortunes)
+        res.status(200).send(newfortune.newFortune)
 
     },
 
