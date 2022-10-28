@@ -5,7 +5,10 @@ const seeAllBtn = document.querySelector("#seeAll")
 const fortuneInpt = document.querySelector("#fortuneTxt")
 const body = document.querySelector('body')
 const form = document.querySelector('#form')
-
+const deleteBtn = document.querySelector('#deleteFortune')
+const spicyForm = document.querySelector('#spicyForm')
+const spicyInput = document.querySelector('#spicyInput')
+const clearBtn = document.querySelector("#clear")
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -20,14 +23,8 @@ function getFortune (){
     .then(res => {
         alert(res.data)
     })
-};
+}
 
-// once they submit it I want to put/post it to the database 
-//I did a .put 
-//once it is put there I want there to be an alert that says whatever their function was and then the statement was added to the databas
-//I don't know how to do this 
-// I don't know how to create a body, and since I don't know how to create a body I can't send anything. 
-//I may have figured out the body but It is giving me an error in promise an telling me line 38. Idk what to do. 
 function submitFortune (event){
     event.preventDefault()
 
@@ -55,9 +52,41 @@ function seeAll (fortunes){
         allFortunes.innerHTML = `<p>${res.data}</p>`
         body.appendChild(allFortunes)
     })
+   
 }
 
+function deleteFortune (){
+    axios.delete("http://localhost:4000/api/delete/")
+    .then(res =>{
+        let lastFortune = res.data
+        // console.log(lastFortune)
+        alert(lastFortune + " was deleted")
+    })
+}
+
+function addSomeSpice (event){
+    event.preventDefault()
+
+    let myBody = {
+        spice: spicyInput.value
+    }
+
+    axios.put("http://localhost:4000/api/putspice", myBody)
+    .then (res =>{
+        console.log(res)
+        alert("the new fortune now says:" + res.data)
+    })
+}
+
+function clearDOM (){
+    const div = document.querySelector(div)
+    div.remove(div)
+}
+ 
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
 form.addEventListener('submit',submitFortune)
 seeAllBtn.addEventListener('click', seeAll)
+deleteBtn.addEventListener('click', deleteFortune)
+spicyForm.addEventListener('submit', addSomeSpice)
+clearBtn.addEventListener('click',clearDOM)

@@ -59,4 +59,20 @@ module.exports = {
        res.status(200).send(fortunes)
     },
 
+    deleteBtn: (req, res)=>{
+        let fortunesMinusOne = fortunes.pop()
+        res.send(fortunesMinusOne)
+    },
+
+    spicySpicy: (req, res)=>{
+        let randomNum = Math.ceil(Math.random()*fortunes.length)
+        const spice = req.body.spice
+
+        let spicyFortune= fortunes[randomNum] + ' ' +spice
+        fortunes.splice(randomNum, 0, spicyFortune)
+        console.log(spicyFortune)
+
+        res.send(spicyFortune)
+    }
+
 }
