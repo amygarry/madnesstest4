@@ -49,6 +49,7 @@ function seeAll (fortunes){
     .then(res =>{
         console.log(res)
         let allFortunes = document.createElement('div')
+        allFortunes.setAttribute('id', 'div1')
         allFortunes.innerHTML = `<p>${res.data}</p>`
         body.appendChild(allFortunes)
     })
@@ -79,8 +80,8 @@ function addSomeSpice (event){
 }
 
 function clearDOM (){
-    const div = document.querySelector(div)
-    div.remove(div)
+    const div = document.querySelector('#div1')
+    div.remove()
 }
  
 complimentBtn.addEventListener('click', getCompliment)

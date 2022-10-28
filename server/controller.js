@@ -69,7 +69,7 @@ module.exports = {
         const spice = req.body.spice
 
         let spicyFortune= fortunes[randomNum] + ' ' +spice
-        fortunes.splice(randomNum, 0, spicyFortune)
+        fortunes.splice(randomNum, 1, spicyFortune)
         console.log(spicyFortune)
 
         res.send(spicyFortune)
